@@ -13,32 +13,44 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     ExitApp
 }
 
-MsgBox "Running as admin: " A_IsAdmin
+; Caps remaps
+*CapsLock::CapsDoubleTap(), KeyWait('CapsLock')
 
 ; Navigation mappings
-CAPSLOCK & j::MoveCursor("{LEFT}")
-CAPSLOCK & l::MoveCursor("{RIGHT}")
-CAPSLOCK & i::MoveCursor("{UP}")
-CAPSLOCK & k::MoveCursor("{DOWN}")
-CAPSLOCK & u::MoveCursor("{HOME}")
-CAPSLOCK & o::MoveCursor("{END}")
-CAPSLOCK & BACKSPACE::Send("{DELETE}")
 
-MoveCursor(key) {
-    modKeys := Map(
-        "SHIFT", "+",
-        "CONTROL", "^",
-        "ALT", "!",
-        "LWin", "#"
-    )
+*i::Up
+*j::Left
+*k::Down
+*l::Right
 
-    prefixString := ""
+*f::LWin
+*d::Shift
+*c::Control
+*.::Escape
+*u::Home
+*o::End
 
-    for name, prefix IN modKeys {
-        if GetKeyState(name, "P") {
-            prefixString := prefixString . prefix
-        }
+*`;::BackSpace
+*'::Delete
+
+; Virtual Desktop navigation
+*w::#^Left
+*e::#^Right
+#HotIf
+
+class CapsDoubleTap {
+    static __New() => SetCapsLockState('AlwaysOff')
+    
+    static call() {
+        static last := 0
+        if (A_TickCount - last < 250)
+            last := 0
+            ,this.ToggleCapsLock()
+        else last := A_TickCount
     }
-
-    send(prefixString . key)
+    
+    static ToggleCapsLock() {
+        state := GetKeyState('CapsLock', 'T') ? 'Off' : 'On'
+        ,SetCapsLockState('Always' state)
+    }
 }
