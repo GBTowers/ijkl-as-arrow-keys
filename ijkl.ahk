@@ -17,6 +17,7 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 *CapsLock::CapsDoubleTap(), KeyWait('CapsLock')
 
 ; Navigation mappings
+#HotIf GetKeyState('CapsLock', 'P')
 
 *i::Up
 *j::Left
