@@ -28,6 +28,7 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 *d::Shift
 *c::Control
 *.::Escape
+*/::AppsKey
 *u::Home
 *o::End
 
