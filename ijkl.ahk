@@ -1,4 +1,6 @@
 ﻿; Starting the script as admin, so it can be used in applications with elevated permissions (Like the Task Manager).
+
+InstallKeybdHook(true, true)
 full_command_line := DllCall("GetCommandLine", "str")
 
 if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
@@ -36,8 +38,8 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 *'::Delete
 
 ; Virtual Desktop navigation
-*w::#^Left
-*e::#^Right
+w::#^Left
+e::#^Right
 #HotIf
 
 class CapsDoubleTap {
