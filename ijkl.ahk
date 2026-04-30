@@ -25,21 +25,18 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 *j::Left
 *k::Down
 *l::Right
-
-*f::LWin
-*d::Shift
-*c::Control
-*.::Escape
-*/::AppsKey
 *u::Home
 *o::End
 
-*`;::BackSpace
-*'::Delete
+; Utility
+*.::Escape
+*/::AppsKey
+
 
 ; Virtual Desktop navigation
 w::#^Left
 e::#^Right
+
 #HotIf
 
 class CapsDoubleTap {
